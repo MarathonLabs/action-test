@@ -1,0 +1,45 @@
+name: Run tests using Marathon Cloud
+description: Run tests using Marathon Cloud
+inputs:
+  version:
+    description: marathon-cloud cli version to use
+    required: false
+    default: 'latest'
+  apiKey:
+    description: "API key for authenticating with Marathon Cloud"
+    required: true
+  application:
+    description: "Application binary path, e.g. apk file for Android"
+    required: true
+  testApplication:
+    description: "Test application binary path, e.g. apk file for Android"
+    required: true
+  link:
+    description: "Link to commit"
+    required: false
+  output:
+    description: "Output folder"
+    required: false
+  githubToken:
+    description: "GitHub token for pulling marathon-cloud CLI release"
+    required: true
+branding:
+  color: purple
+  icon: play-circle
+runs:
+  using: composite
+  steps:
+    - name: Setup marathon-cloud
+      uses: MarathonLabs/setup-marathon-cloud@1.0.0
+      env:
+        GITHUB_TOKEN: ${{ inputs.githubToken }}
+      with:
+        version: ${{ inputs.version }}
+    - name: Run tests using marathon-cloud
+      uses: MarathonLabs/action-invoke@0.1.1
+      with:
+        apiKey: ${{ inputs.apiKey }}
+        application: ${{ inputs.application }}
+        testApplication: ${{ inputs.testApplication }}
+        link: ${{ inputs.link }}
+        output: ${{ inputs.output }}
