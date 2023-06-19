@@ -24,7 +24,7 @@ jobs:
       with:
         apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
         application: app/build/outputs/apk/debug/app-debug.apk
-        testAppplication: app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+        testApplication: app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
         githubToken: ${{ secrets.GITHUB_TOKEN }}
 ```
 
