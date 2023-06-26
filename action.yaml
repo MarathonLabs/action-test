@@ -9,10 +9,13 @@ inputs:
     description: "API key for authenticating with Marathon Cloud"
     required: true
   application:
-    description: "Application binary path, e.g. apk file for Android"
+    description: "Application binary path, e.g. apk file for Android or zip file of iOS Application"
     required: true
   testApplication:
-    description: "Test application binary path, e.g. apk file for Android"
+    description: "Test application binary path, e.g. apk file for Android or zip file of iOS Test Runner app"
+    required: true
+  platform:
+    description: "Testing platform. Android or iOS only"
     required: true
   link:
     description: "Link to commit"
@@ -36,10 +39,11 @@ runs:
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      uses: MarathonLabs/action-invoke@0.1.1
+      uses: MarathonLabs/action-invoke@0.2.0
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
         testApplication: ${{ inputs.testApplication }}
+        platform: ${{ inputs.platform }}
         link: ${{ inputs.link }}
         output: ${{ inputs.output }}

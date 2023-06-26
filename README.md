@@ -20,11 +20,12 @@ jobs:
     - name: Build app
       run: ./gradlew assembleDebug assembleAndroidTest
     - name: Run tests
-      uses: MarathonLabs/action-test@0.1.1
+      uses: MarathonLabs/action-test@0.2.0
       with:
         apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
         application: app/build/outputs/apk/debug/app-debug.apk
         testApplication: app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+        platform: Android
         githubToken: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -33,10 +34,11 @@ jobs:
 |             Name             | Description                                             | Default | Example                                                             |
 | :--------------------------: | ------------------------------------------------------- | ------- | ------------------------------------------------------------------- |
 |     `apiKey` (required)      | Marathon Cloud API key                                  |         | `cafebabe`                                                          |
-|   `application` (required)   | Application binary path, e.g. apk file for Android      |         | `app/build/outputs/apk/debug/app-debug.apk`                          |
-| `testApplication` (required) | Test application binary path, e.g. apk file for Android |         | `app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk` |
-|     `output` (optional)      | Output folder path                                      |         | `output`                                                                  |
-|      `link` (optional)       | Link to commit                                          |         |                                                                   |
+|   `application` (required)   | Application binary path                                 |         | `app/build/outputs/apk/debug/app-debug.apk` or `/home/user/workspace/sample.zip` |
+| `testApplication` (required) | Test application binary path                            |         | `app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk` or `/home/user/workspace/sampleUITests-Runner.zip` |
+|    `platform` (required)     | Testing platform                                        |         | `Android` or `iOS`                                                  |
+|     `output` (optional)      | Output folder path                                      |         | `output`                                                            |
+|      `link` (optional)       | Link to commit                                          |         |                                                                     |
 | `version` (optional)         | marathon-cloud cli version to use                       | `latest`| `0.1.1`                                                             |
 | `githubToken` (optional)     | GitHub token                                            |         | `${{ secrets.GITHUB_TOKEN }}`                                       |
 
