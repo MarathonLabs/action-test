@@ -17,6 +17,9 @@ inputs:
   platform:
     description: "Testing platform. Android or iOS only"
     required: true
+  osVersion:
+    description: "Android or iOS OS version"
+    required: false
   link:
     description: "Link to commit"
     required: false
@@ -39,11 +42,12 @@ runs:
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      uses: MarathonLabs/action-invoke@0.2.1
+      uses: MarathonLabs/action-invoke@0.3.0
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
         testApplication: ${{ inputs.testApplication }}
         platform: ${{ inputs.platform }}
+        osVersion: ${{ inputs.osVersion }}
         link: ${{ inputs.link }}
         output: ${{ inputs.output }}
