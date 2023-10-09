@@ -20,6 +20,8 @@ inputs:
   osVersion:
     description: "Android or iOS OS version"
     required: false
+  systemImage:
+    description: "OS-specific system image. For Android one of [default,google_apis]. For iOS only [default]"
   link:
     description: "Link to commit"
     required: false
@@ -49,5 +51,6 @@ runs:
         testApplication: ${{ inputs.testApplication }}
         platform: ${{ inputs.platform }}
         osVersion: ${{ inputs.osVersion }}
+        systemImage: ${{ inputs.systemImage }}
         link: ${{ inputs.link }}
         output: ${{ inputs.output }}
