@@ -43,7 +43,7 @@ jobs:
 |      `link` (optional)       | Link to commit                                                                                                                                                                                                                                       |          |                                                                                                                                                                                                  |
 |     `version` (optional)     | marathon-cloud cli version to use                                                                                                                                                                                                                    | `latest` | `0.1.1`                                                                                                                                                                                          |
 |   `githubToken` (optional)   | GitHub token                                                                                                                                                                                                                                         |          | `${{ secrets.GITHUB_TOKEN }}`                                                                                                                                                                    |
-
+|    `isolated` (optional)     | Run each test in isolation, i.e. isolated batching            |       |                                                                                                                                                            |
 
 ## marathon-cloud version
 
