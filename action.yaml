@@ -31,6 +31,9 @@ inputs:
   githubToken:
     description: "GitHub token for pulling marathon-cloud CLI release"
     required: true
+  isolated:
+    description: "Run each test in isolation, i.e. isolated batching"
+    required: false
 branding:
   color: purple
   icon: play-circle
@@ -54,3 +57,4 @@ runs:
         systemImage: ${{ inputs.systemImage }}
         link: ${{ inputs.link }}
         output: ${{ inputs.output }}
+        isolated: ${{ inputs.isolated }}
