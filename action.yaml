@@ -47,13 +47,13 @@ runs:
   using: composite
   steps:
     - name: Setup marathon-cloud
-      uses: MarathonLabs/setup-marathon-cloud@1.0.0
+      uses: MarathonLabs/setup-marathon-cloud@1
       env:
         GITHUB_TOKEN: ${{ inputs.githubToken }}
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      uses: MarathonLabs/action-invoke@0.3.4
+      uses: MarathonLabs/action-invoke@0
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
