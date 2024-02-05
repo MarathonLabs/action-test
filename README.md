@@ -20,7 +20,7 @@ jobs:
     - name: Build app
       run: ./gradlew assembleDebug assembleAndroidTest
     - name: Run tests
-      uses: MarathonLabs/action-test@0.3.0
+      uses: MarathonLabs/action-test@0
       with:
         apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
         application: app/build/outputs/apk/debug/app-debug.apk
@@ -50,6 +50,14 @@ jobs:
 ## marathon-cloud version
 
 If the `version` is not set, or is one of `latest` or `*`, the action will try to use the latest version of marathon-cloud.
+For action version `0` the latest supported version is 0.3.11. Any version starting with 1.0.0 will require action version `1` to work.
+
+Support matrix:
+| action version |  cli version supported | `latest` version |
+|--------------- | ---------------------- | ---------------- |
+|       1        | 1.0.0<=..<2.0.0        | not supported    |
+|       0        | <1.0.0                 | 0.3.11           |
+
 However, due to the GitHub API rate limiting settings, this action requires to pass in the `GITHUB_TOKEN` input. If this input variable is not set, one will see error similar to the following:
 
 ```
