@@ -3,8 +3,7 @@ description: Run tests using Marathon Cloud
 inputs:
   version:
     description: marathon-cloud cli version to use
-    required: false
-    default: 'latest'
+    required: true 
   apiKey:
     description: "API key for authenticating with Marathon Cloud"
     required: true
@@ -28,9 +27,6 @@ inputs:
   output:
     description: "Output folder"
     required: false
-  githubToken:
-    description: "GitHub token for pulling marathon-cloud CLI release"
-    required: true
   isolated:
     description: "Run each test in isolation, i.e. isolated batching"
     required: false
@@ -40,6 +36,9 @@ inputs:
   filterFile:
     description: "File containing test filters in YAML format, following the schema described at https://docs.marathonlabs.io/runner/configuration/filtering/#filtering-logic. For iOS see also https://docs.marathonlabs.io/runner/next/ios#test-plans."
     required: false
+  wait:
+    description: "Wait for test run to finish if true, exits after triggering a run if false. Defaults to true"
+    required: false
 branding:
   color: purple
   icon: play-circle
@@ -47,13 +46,11 @@ runs:
   using: composite
   steps:
     - name: Setup marathon-cloud
-      uses: MarathonLabs/setup-marathon-cloud@1
-      env:
-        GITHUB_TOKEN: ${{ inputs.githubToken }}
+      uses: MarathonLabs/setup-marathon-cloud@2
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      uses: MarathonLabs/action-invoke@0
+      uses: MarathonLabs/action-invoke@1
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
@@ -66,3 +63,4 @@ runs:
         isolated: ${{ inputs.isolated }}
         flavor: ${{ inputs.flavor }}
         filterFile: ${{ inputs.filterFile }}
+        wait: ${{ inputs.wait }}
