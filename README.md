@@ -16,17 +16,18 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
   steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Build app
       run: ./gradlew assembleDebug assembleAndroidTest
     - name: Run tests
-      uses: MarathonLabs/action-test@0
+      uses: MarathonLabs/action-test@1
       with:
         apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
         application: app/build/outputs/apk/debug/app-debug.apk
         testApplication: app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
-        platform: Android
-        githubToken: ${{ secrets.GITHUB_TOKEN }}
+        platform: android
+        output: "./results"
+        version: "1.0.1"
 ```
 
 ## Inputs
@@ -34,22 +35,20 @@ jobs:
 |             Name             | Description                                                                                                                                                                                                                                          | Default  | Example                                                                                                                                                                                          |
 |:----------------------------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |     `apiKey` (required)      | Marathon Cloud API key                                                                                                                                                                                                                               |          | `cafebabe`                                                                                                                                                                                       |
+|     `version` (required)     | marathon-cloud cli version to use                                                                                                                                                                                                                    |          | `1.0.0`                                                                                                                                                                                          |
 |   `application` (required)   | Application binary path. <br>**Android**: `application` should point to the APK file. <br>**iOS**: `application` should point to an ARM compatible Simulator build packaged in an ipa format or a zip archive.                                       |          | **Android**: `app/build/outputs/apk/debug/app-debug.apk` <br>**iOS**: `/home/user/workspace/sample.zip` or `/home/user/workspace/sample.ipa`                                                     |
 | `testApplication` (required) | Test application binary path. <br>**Android**: `test_application` should point to the test .apk file for your app. <br>**iOS**: `test_application` should point to an ARM compatible iOS Test Runner app packaged in an ipa format or a zip archive. |          | **Android**: `app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk` <br>**iOS**: `/home/user/workspace/sampleUITests-Runner.zip` or `/home/user/workspace/sampleUITests-Runner.ipa` |
-|    `platform` (required)     | Testing platform                                                                                                                                                                                                                                     |          | `Android` or `iOS`                                                                                                                                                                               |
+|    `platform` (required)     | Testing platform                                                                                                                                                                                                                                     |          | `android` or `ios`                                                                                                                                                                               |
 |    `osVersion` (optional)    | Android or iOS OS version                                                                                                                                                                                                                            |          | `11`, `15.5`, etc.                                                                                                                                                                               |
 |   `systemImage` (optional)   | OS-specific system image. For Android one of [default,google_apis]. For iOS only [default]                                                                                                                                                           |          | `default`, `google_apis`                                                                                                                                                                         |
 |     `output` (optional)      | Output folder path                                                                                                                                                                                                                                   |          | `output`                                                                                                                                                                                         |
 |      `link` (optional)       | Link to commit                                                                                                                                                                                                                                       |          |                                                                                                                                                                                                  |
-|     `version` (optional)     | marathon-cloud cli version to use                                                                                                                                                                                                                    | `latest` | `0.1.1`                                                                                                                                                                                          |
-|   `githubToken` (optional)   | GitHub token                                                                                                                                                                                                                                         |          | `${{ secrets.GITHUB_TOKEN }}`                                                                                                                                                                    |
-|    `isolated` (optional)     | Run each test in isolation, i.e. isolated batching                                                                                                                                                                                                   |          |                                                                                                                                                                                                  |
 |     `flavor` (optional)      | Type of tests to run                                                                                                                                                                                                                                 | `native` | `native`, `js-test-appium`, `python-robotframework-appium`                                                                                                                                       |
 |   `filterFile` (optional)    | File containing test filters in YAML format, following the schema described at https://docs.marathonlabs.io/runner/configuration/filtering/#filtering-logic. For iOS see also https://docs.marathonlabs.io/runner/next/ios#test-plans.               |          |                                                                                                                                                                                                  |
+|   `wait` (optional)          | Wait for test run to finish if true, exits after triggering a run if false. Defaults to true                                                                                                                                                         | true     |                                                                                                                                                                                                  |
 
 ## marathon-cloud version
 
-If the `version` is not set, or is one of `latest` or `*`, the action will try to use the latest version of marathon-cloud.
 For action version `0` the latest supported version is 0.3.11. Any version starting with 1.0.0 will require action version `1` to work.
 
 Support matrix:
@@ -57,14 +56,6 @@ Support matrix:
 |--------------- | ---------------------- | ---------------- |
 |       1        | 1.0.0<=..<2.0.0        | not supported    |
 |       0        | <1.0.0                 | 0.3.11           |
-
-However, due to the GitHub API rate limiting settings, this action requires to pass in the `GITHUB_TOKEN` input. If this input variable is not set, one will see error similar to the following:
-
-```
-Run MarathonLabs/setup-marathon-cloud@{version}
-/home/runner/work/_actions/MarathonLabs/setup-marathon-cloud/{version}/lib/index.js:14812
-            throw new Error('GITHUB_TOKEN is not set, unable to resolve the latest version of marathon-cloud');
-```
 
 ## Developing
 
