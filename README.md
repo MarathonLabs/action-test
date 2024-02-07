@@ -16,7 +16,7 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
   steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Build app
       run: ./gradlew assembleDebug assembleAndroidTest
     - name: Run tests
@@ -26,6 +26,8 @@ jobs:
         application: app/build/outputs/apk/debug/app-debug.apk
         testApplication: app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
         platform: android
+        output: "./results"
+        version: "1.0.1"
 ```
 
 ## Inputs
@@ -41,14 +43,12 @@ jobs:
 |   `systemImage` (optional)   | OS-specific system image. For Android one of [default,google_apis]. For iOS only [default]                                                                                                                                                           |          | `default`, `google_apis`                                                                                                                                                                         |
 |     `output` (optional)      | Output folder path                                                                                                                                                                                                                                   |          | `output`                                                                                                                                                                                         |
 |      `link` (optional)       | Link to commit                                                                                                                                                                                                                                       |          |                                                                                                                                                                                                  |
-|   `githubToken` (optional)   | GitHub token                                                                                                                                                                                                                                         |          | `${{ secrets.GITHUB_TOKEN }}`                                                                                                                                                                    |
 |     `flavor` (optional)      | Type of tests to run                                                                                                                                                                                                                                 | `native` | `native`, `js-test-appium`, `python-robotframework-appium`                                                                                                                                       |
 |   `filterFile` (optional)    | File containing test filters in YAML format, following the schema described at https://docs.marathonlabs.io/runner/configuration/filtering/#filtering-logic. For iOS see also https://docs.marathonlabs.io/runner/next/ios#test-plans.               |          |                                                                                                                                                                                                  |
 |   `wait` (optional)          | Wait for test run to finish if true, exits after triggering a run if false. Defaults to true                                                                                                                                                         | true     |                                                                                                                                                                                                  |
 
 ## marathon-cloud version
 
-If the `version` is not set, or is one of `latest` or `*`, the action will try to use the latest version of marathon-cloud.
 For action version `0` the latest supported version is 0.3.11. Any version starting with 1.0.0 will require action version `1` to work.
 
 Support matrix:
