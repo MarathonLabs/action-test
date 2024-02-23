@@ -39,6 +39,12 @@ inputs:
   wait:
     description: "Wait for test run to finish if true, exits after triggering a run if false. Defaults to true"
     required: false
+  name:
+    description: "Name for run, for example it could be description of commit"
+    required: false
+  device:
+    description: "Device type (Only for Android now). Default: [phone]. Possible values: [phone, tv, watch]"
+    required: false
 branding:
   color: purple
   icon: play-circle
@@ -50,7 +56,7 @@ runs:
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      uses: MarathonLabs/action-invoke@1
+      uses: MarathonLabs/action-invoke@1.0.1
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
@@ -64,3 +70,5 @@ runs:
         flavor: ${{ inputs.flavor }}
         filterFile: ${{ inputs.filterFile }}
         wait: ${{ inputs.wait }}
+        name: ${{ inputs.name }}
+        device: ${{ inputs.device }}
