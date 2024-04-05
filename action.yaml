@@ -17,7 +17,7 @@ inputs:
     description: "Testing platform. Android or iOS only"
     required: true
   osVersion:
-    description: "Android or iOS OS version"
+    description: "Android or iOS OS version. For Android one of [10, 11, 12, 13, 14]. For iOS one of [16.4, 17.2]"
     required: false
   systemImage:
     description: "OS-specific system image. For Android one of [default,google_apis]. For iOS only [default]"
@@ -43,7 +43,10 @@ inputs:
     description: "Name for run, for example it could be description of commit"
     required: false
   device:
-    description: "Device type (Only for Android now). Default: [phone]. Possible values: [phone, tv, watch]"
+    description: "Device type. For Android one of [phone, tv, watch]. For iOS one of [iPhone-14, iPhone-15]"
+    required: false
+  xcodeVersion:
+    description: "Xcode version. Only for iOS. Possible values: [14.3.1, 15.2]"
     required: false
 branding:
   color: purple
@@ -56,7 +59,7 @@ runs:
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      uses: MarathonLabs/action-invoke@1.0.1
+      uses: MarathonLabs/action-invoke@1.0.2
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
@@ -72,3 +75,4 @@ runs:
         wait: ${{ inputs.wait }}
         name: ${{ inputs.name }}
         device: ${{ inputs.device }}
+        xcodeVersion: ${{ inputs.xcodeVersion }}
