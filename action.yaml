@@ -48,6 +48,12 @@ inputs:
   xcodeVersion:
     description: "Xcode version. Only for iOS. Possible values: [14.3.1, 15.2]"
     required: false
+  xctestplanFilterFile:
+    description: "Test filters supplied as .xctestplan file"
+    required: false
+  xctestplanTargetName:
+    description: "Target name to use for test filtering in .xctestplan"
+    required: false
 branding:
   color: purple
   icon: play-circle
@@ -59,7 +65,7 @@ runs:
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      uses: MarathonLabs/action-invoke@1.0.2
+      uses: MarathonLabs/action-invoke@1.0.3
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
@@ -76,3 +82,5 @@ runs:
         name: ${{ inputs.name }}
         device: ${{ inputs.device }}
         xcodeVersion: ${{ inputs.xcodeVersion }}
+        xctestplanFilterFile: ${{ inputs.xctestplanFilterFile }}
+        xctestplanTargetName: ${{ inputs.xctestplanTargetName }}
