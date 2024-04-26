@@ -54,6 +54,12 @@ inputs:
   xctestplanTargetName:
     description: "Target name to use for test filtering in .xctestplan"
     required: false
+  xctestrunEnv:
+    description: "xctestrun environment variables, format: 'VAR1=VALUE1,VAR2=VALUE2'"
+    required: false
+  xctestrunTestEnv:
+    description: "xctestrun testing environment variables, format: 'VAR1=VALUE1,VAR2=VALUE2'"
+    required: false
 branding:
   color: purple
   icon: play-circle
@@ -65,7 +71,7 @@ runs:
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      uses: MarathonLabs/action-invoke@1.0.3
+      uses: MarathonLabs/action-invoke@1.0.4
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
@@ -84,3 +90,5 @@ runs:
         xcodeVersion: ${{ inputs.xcodeVersion }}
         xctestplanFilterFile: ${{ inputs.xctestplanFilterFile }}
         xctestplanTargetName: ${{ inputs.xctestplanTargetName }}
+        xctestrunEnv: ${{ inputs.xctestrunEnv }}
+        xctestrunTestEnv: ${{ inputs.xctestrunTestEnv }}

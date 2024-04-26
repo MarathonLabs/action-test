@@ -20,14 +20,14 @@ jobs:
     - name: Build app
       run: ./gradlew assembleDebug assembleAndroidTest
     - name: Run tests
-      uses: MarathonLabs/action-test@1.0.4
+      uses: MarathonLabs/action-test@1.0.5
       with:
         apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
         application: app/build/outputs/apk/debug/app-debug.apk
         testApplication: app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
         platform: android
         output: "./results"
-        version: "1.0.7"
+        version: "1.0.10"
 ```
 
 ## Inputs
@@ -52,6 +52,8 @@ jobs:
 |     `xcodeVersion` (optional)     | Xcode version. Only for iOS. Possible values: [14.3.1, 15.2]                                                                                                                                                                                         | `14.3.1`                                   | `14.3.1`, `15.2`                                                                                                                                                                                 |
 | `xctestplanFilterFile` (optional) | Test filters supplied as .xctestplan file                                                                                                                                                                                                            | ``                                         | ``                                                                                                                                                                                               |
 | `xctestplanTargetName` (optional) | Target name to use for test filtering in .xctestplan                                                                                                                                                                                                 | ``                                         | ``                                                                                                                                                                                               |
+|     `xctestrunEnv` (optional)     | Xctestrun environment variables, format: 'VAR1=VALUE1,VAR2=VALUE2'                                                                                                                                                                                   | ``                                         | `VAR1=VALUE1,VAR2=VALUE2`                                                                                                                                                                                               |
+|   `xctestrunTestEnv` (optional)   | Xctestrun testing environment variables, format: 'VAR1=VALUE1,VAR2=VALUE2'                                                                                                                                                                           | ``                                         | `VAR1=VALUE1,VAR2=VALUE2`                                                                                                                                                                                               |
 
 
 ## marathon-cloud version
