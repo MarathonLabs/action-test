@@ -60,6 +60,9 @@ inputs:
   xctestrunTestEnv:
     description: "xctestrun testing environment variables, format: 'VAR1=VALUE1,VAR2=VALUE2'"
     required: false
+  ignoreTestFailures:
+    description: "When tests fail and this option is true then GHA will exit with code 0. By default, GHA will exit with code 1 in case of test failures and 0 for passing tests [possible values: true, false]"
+    required: false
 branding:
   color: purple
   icon: play-circle
@@ -71,7 +74,7 @@ runs:
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      uses: MarathonLabs/action-invoke@1.0.4
+      uses: MarathonLabs/action-invoke@1.0.5
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
@@ -92,3 +95,4 @@ runs:
         xctestplanTargetName: ${{ inputs.xctestplanTargetName }}
         xctestrunEnv: ${{ inputs.xctestrunEnv }}
         xctestrunTestEnv: ${{ inputs.xctestrunTestEnv }}
+        ignoreTestFailures: ${{ inputs.ignoreTestFailures }}
