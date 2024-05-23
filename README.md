@@ -20,14 +20,14 @@ jobs:
     - name: Build app
       run: ./gradlew assembleDebug assembleAndroidTest
     - name: Run tests
-      uses: MarathonLabs/action-test@1.0.5
+      uses: MarathonLabs/action-test@1.0.6
       with:
         apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
         application: app/build/outputs/apk/debug/app-debug.apk
         testApplication: app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
         platform: android
         output: "./results"
-        version: "1.0.10"
+        version: "1.0.13"
 ```
 
 ## Inputs
@@ -54,6 +54,7 @@ jobs:
 | `xctestplanTargetName` (optional) | Target name to use for test filtering in .xctestplan                                                                                                                                                                                                 | ``                                         | ``                                                                                                                                                                                               |
 |     `xctestrunEnv` (optional)     | Xctestrun environment variables, format: 'VAR1=VALUE1,VAR2=VALUE2'                                                                                                                                                                                   | ``                                         | `VAR1=VALUE1,VAR2=VALUE2`                                                                                                                                                                                               |
 |   `xctestrunTestEnv` (optional)   | Xctestrun testing environment variables, format: 'VAR1=VALUE1,VAR2=VALUE2'                                                                                                                                                                           | ``                                         | `VAR1=VALUE1,VAR2=VALUE2`                                                                                                                                                                                               |
+|  `ignoreTestFailures` (optional)  | When tests fail and this option is true then GHA will exit with code 0. By default, GHA will exit with code 1 in case of test failures and 0 for passing tests [possible values: true, false]                                                        | `false`                                    | `true`, `false`                                                                                                                                                                                  |
 
 
 ## marathon-cloud version
