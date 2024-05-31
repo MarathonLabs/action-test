@@ -25,7 +25,10 @@ inputs:
     description: "Link to commit"
     required: false
   output:
-    description: "Output folder"
+    description: "Output folder for test run results"
+    required: false
+  outputGlob:
+    description: "Only files matching this glob will be downloaded, i.e. 'tests/**' will download only the JUnit xml files"
     required: false
   isolated:
     description: "Run each test in isolation, i.e. isolated batching"
@@ -70,11 +73,11 @@ runs:
   using: composite
   steps:
     - name: Setup marathon-cloud
-      uses: MarathonLabs/setup-marathon-cloud@2
+      uses: MarathonLabs/setup-marathon-cloud@2.0.1
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      uses: MarathonLabs/action-invoke@1.0.5
+      uses: MarathonLabs/action-invoke@1.0.6
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
@@ -84,6 +87,7 @@ runs:
         systemImage: ${{ inputs.systemImage }}
         link: ${{ inputs.link }}
         output: ${{ inputs.output }}
+        outputGlob: ${{ inputs.outputGlob }}
         isolated: ${{ inputs.isolated }}
         flavor: ${{ inputs.flavor }}
         filterFile: ${{ inputs.filterFile }}

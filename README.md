@@ -20,14 +20,14 @@ jobs:
     - name: Build app
       run: ./gradlew assembleDebug assembleAndroidTest
     - name: Run tests
-      uses: MarathonLabs/action-test@1.0.6
+      uses: MarathonLabs/action-test@1.0.7
       with:
         apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
         application: app/build/outputs/apk/debug/app-debug.apk
         testApplication: app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
         platform: android
         output: "./results"
-        version: "1.0.13"
+        version: "1.0.15"
 ```
 
 ## Inputs
@@ -41,7 +41,8 @@ jobs:
 |       `platform` (required)       | Testing platform                                                                                                                                                                                                                                     | ``                                         | `Android` or `iOS`                                                                                                                                                                               |
 |      `osVersion` (optional)       | Android or iOS OS version. For Android one of [10, 11, 12, 13, 14]. For iOS one of [16.4, 17.2]                                                                                                                                                      | **Android**: `11`; **iOS**: `16.4`         | `12`, `17.2`, etc.                                                                                                                                                                               |
 |     `systemImage` (optional)      | OS-specific system image. For Android only                                                                                                                                                                                                           | ``                                         | `default`, `google_apis`, etc.                                                                                                                                                                   |
-|        `output` (optional)        | Output folder path                                                                                                                                                                                                                                   | ``                                         | ``                                                                                                                                                                                               |
+|        `output` (optional)        | Output folder for test run results                                                                                                                                                                                                                   | ``                                         | `output`                                                                                                                                                                                         |
+|      `outputGlob` (optional)      | Only files matching this glob will be downloaded, i.e. 'tests/\*\*' will download only the JUnit xml files                                                                                                                                           | ``                                         | `tests/**`                                                                                                                                                                                       |
 |         `link` (optional)         | Link to commit                                                                                                                                                                                                                                       | ``                                         | ``                                                                                                                                                                                               |
 |       `isolated` (optional)       | Run each test in isolation, i.e. isolated batching                                                                                                                                                                                                   | `false`                                    | `true`, `false`                                                                                                                                                                                  |
 |        `flavor` (optional)        | Type of tests to run                                                                                                                                                                                                                                 | `native`                                   | `native`, `js-test-appium`, `python-robotframework-appium`                                                                                                                                       |
