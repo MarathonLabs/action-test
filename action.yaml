@@ -41,6 +41,7 @@ inputs:
     required: false
   wait:
     description: "Wait for test run to finish if true, exits after triggering a run if false. Defaults to true"
+    default: "true"
     required: false
   name:
     description: "Name for run, for example it could be description of commit"
