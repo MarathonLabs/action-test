@@ -20,14 +20,14 @@ jobs:
     - name: Build app
       run: ./gradlew assembleDebug assembleAndroidTest
     - name: Run tests
-      uses: MarathonLabs/action-test@1.0.8
+      uses: MarathonLabs/action-test@1.0.9
       with:
         apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
         application: app/build/outputs/apk/debug/app-debug.apk
         testApplication: app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
         platform: android
         output: "./results"
-        version: "1.0.15"
+        version: "1.0.16"
 ```
 
 ## Inputs
