@@ -81,7 +81,7 @@ runs:
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      uses: MarathonLabs/action-invoke@1.0.7
+      uses: MarathonLabs/action-invoke@1.0.8
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
