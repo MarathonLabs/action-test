@@ -102,7 +102,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: output_android
+          name: output_android_failed
           path: output
 
   check_ios:
