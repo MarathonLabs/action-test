@@ -39,6 +39,8 @@ jobs:
           name: "android_3_0"
           output: "output"
           version: "1.0.38"
+          resultFile: "some-result.json"
+          branch: "develop"
 
       - name: Check if output folder exists and is not empty
         run: |
@@ -49,11 +51,25 @@ jobs:
             exit 1
           fi
 
+      - name: Check if resultFile exists
+        run: |
+          if [ ! -f "some-result.json" ]; then
+            echo "Error: some-result.json does not exist."
+            exit 1
+          fi
+
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: output_android
           path: output
+
+      - name: Upload resultFile
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: some-result.json
+          path: some-result.json
 
   check_failed_android:
     runs-on: ubuntu-latest
@@ -84,9 +100,9 @@ jobs:
           fi
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
-          name: output_android
+          name: output_android_failed
           path: output
 
   check_ios:
@@ -117,7 +133,7 @@ jobs:
           fi
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: output_ios
           path: output
