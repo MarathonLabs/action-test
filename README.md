@@ -20,7 +20,7 @@ jobs:
     - name: Build app
       run: ./gradlew assembleDebug assembleAndroidTest
     - name: Run tests
-      uses: MarathonLabs/action-test@1.0.13
+      uses: MarathonLabs/action-test@1.0.14
       with:
         apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
         application: app/build/outputs/apk/debug/app-debug.apk
@@ -59,7 +59,7 @@ jobs:
 |      `pullFiles` (optional)       | Pull files from devices after the test run. The format is `ROOT1:PATH1,ROOT2:PATH2` where ROOT is one of [EXTERNAL_STORAGE, APP_DATA] and PATH is a relative path to the target file or directory. Note: Files with the same name and path from different devices may overwrite each other.  | ``                                         | `EXTERNAL_STORAGE:Documents/some-results,APP_DATA:files/my_folder/some_file.txt`                                                                                                                 |
 |      `resultFile` (optional)      | Result file path in a machine-readable format. You can specify the format via extension [yaml,json]                                                                                                                                                                                          | `result.json`                              | `some_result.json`                                                                                                                                                                               |
 |        `branch` (optional)        | Branch for run, for example it could be git branch like develop or feature/about-screen                                                                                                                                                                                                      | ``                                         | `develop`                                                                                                                                                                                        |
-
+|       `project` (optional)        | The unique identifier (slug) for the project                                                                                                                                                                                                                                                 | ``                                         | ``                                                                                                                                                                                               |
 
 ## marathon-cloud version
 

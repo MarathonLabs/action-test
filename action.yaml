@@ -76,6 +76,9 @@ inputs:
   branch:
     description: "Branch for run, for example it could be git branch like develop or feature/about-screen"
     required: false
+  project:
+    description: "The unique identifier (slug) for the project"
+    required: false
 branding:
   color: purple
   icon: play-circle
@@ -87,7 +90,7 @@ runs:
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      uses: MarathonLabs/action-invoke@1.0.10
+      uses: MarathonLabs/action-invoke@1.0.11
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
@@ -113,3 +116,4 @@ runs:
         pullFiles: ${{ inputs.pullFiles }}
         resultFile: ${{ inputs.resultFile }}
         branch: ${{ inputs.branch }}
+        project: ${{ inputs.project }}
