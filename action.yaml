@@ -79,6 +79,9 @@ inputs:
   project:
     description: "The unique identifier (slug) for the project"
     required: false
+  grantedPermission:
+    description: "Grant permission to application. Important: Granting is conducted before each test batch (not each test). If you need to grant before each test, please use --isolated mode. Available permissions: calendar, contacts-limited, contacts, location, location-always, photos-add, photos, media-library, microphone, motion, reminders, siri. Format: 'motion,siri'"
+    required: false
 branding:
   color: purple
   icon: play-circle
@@ -90,7 +93,7 @@ runs:
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      uses: MarathonLabs/action-invoke@1.0.11
+      uses: MarathonLabs/action-invoke@1.0.12
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
@@ -117,3 +120,4 @@ runs:
         resultFile: ${{ inputs.resultFile }}
         branch: ${{ inputs.branch }}
         project: ${{ inputs.project }}
+        grantedPermission: ${{ inputs.grantedPermission }}
