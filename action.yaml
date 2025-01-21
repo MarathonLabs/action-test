@@ -82,6 +82,9 @@ inputs:
   grantedPermission:
     description: "Grant permission to application. Important: Granting is conducted before each test batch (not each test). If you need to grant before each test, please use --isolated mode. Available permissions: calendar, contacts-limited, contacts, location, location-always, photos-add, photos, media-library, microphone, motion, reminders, siri. Format: 'motion,siri'"
     required: false
+  analyticsReadOnly:
+    description: "If true then test run will not affect any statistical measurements [possible values: true, false]"
+    required: false
 branding:
   color: purple
   icon: play-circle
@@ -93,7 +96,7 @@ runs:
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      uses: MarathonLabs/action-invoke@1.0.12
+      uses: MarathonLabs/action-invoke@1.0.13
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
@@ -121,3 +124,4 @@ runs:
         branch: ${{ inputs.branch }}
         project: ${{ inputs.project }}
         grantedPermission: ${{ inputs.grantedPermission }}
+        analyticsReadOnly: ${{ inputs.analyticsReadOnly }}
