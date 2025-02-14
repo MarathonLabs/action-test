@@ -85,6 +85,18 @@ inputs:
   analyticsReadOnly:
     description: "If true then test run will not affect any statistical measurements [possible values: true, false]"
     required: false
+  retryQuotaTestUncompleted:
+    description: "Number of allowed uncompleted executions per test"
+    required: false
+  retryQuotaTestPreventive:
+    description: "Number of allowed preventive retries per test"
+    required: false
+  retryQuotaTestReactive:
+    description: "Number of allowed reactive retries per test"
+    required: false
+  noRetries:
+    description: "Disable all retries [possible values: true, false]"
+    required: false
 branding:
   color: purple
   icon: play-circle
@@ -96,7 +108,7 @@ runs:
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      uses: MarathonLabs/action-invoke@1.0.13
+      uses: MarathonLabs/action-invoke@1.0.14
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
@@ -125,3 +137,7 @@ runs:
         project: ${{ inputs.project }}
         grantedPermission: ${{ inputs.grantedPermission }}
         analyticsReadOnly: ${{ inputs.analyticsReadOnly }}
+        retryQuotaTestUncompleted: ${{ inputs.retryQuotaTestUncompleted }}
+        retryQuotaTestPreventive: ${{ inputs.retryQuotaTestPreventive }}
+        retryQuotaTestReactive: ${{ inputs.retryQuotaTestReactive }}
+        noRetries: ${{ inputs.noRetries }}
