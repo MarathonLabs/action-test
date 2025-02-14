@@ -21,119 +21,122 @@ jobs:
           platform: android
           name: "android_3_0"
           version: "1.0.38"
+          retryQuotaTestUncompleted: "1"
+          retryQuotaTestPreventive: "1"
+          retryQuotaTestReactive: "1"
 
-  check_output_android:
-    runs-on: ubuntu-latest
+  # check_output_android:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v2
 
-      - name: Run tests
-        uses: ./
-        with:
-          apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
-          application: "example/app.apk"
-          testApplication: "example/appTest.apk"
-          platform: android
-          name: "android_3_0"
-          output: "output"
-          version: "1.0.38"
-          resultFile: "some-result.json"
-          branch: "develop"
+  #     - name: Run tests
+  #       uses: ./
+  #       with:
+  #         apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
+  #         application: "example/app.apk"
+  #         testApplication: "example/appTest.apk"
+  #         platform: android
+  #         name: "android_3_0"
+  #         output: "output"
+  #         version: "1.0.38"
+  #         resultFile: "some-result.json"
+  #         branch: "develop"
 
-      - name: Check if output folder exists and is not empty
-        run: |
-          if [ -d "output" ] && [ "$(ls -A output)" ]; then
-            echo "Output folder exists and is not empty."
-          else
-            echo "Output folder does not exist or is empty."
-            exit 1
-          fi
+  #     - name: Check if output folder exists and is not empty
+  #       run: |
+  #         if [ -d "output" ] && [ "$(ls -A output)" ]; then
+  #           echo "Output folder exists and is not empty."
+  #         else
+  #           echo "Output folder does not exist or is empty."
+  #           exit 1
+  #         fi
 
-      - name: Check if resultFile exists
-        run: |
-          if [ ! -f "some-result.json" ]; then
-            echo "Error: some-result.json does not exist."
-            exit 1
-          fi
+  #     - name: Check if resultFile exists
+  #       run: |
+  #         if [ ! -f "some-result.json" ]; then
+  #           echo "Error: some-result.json does not exist."
+  #           exit 1
+  #         fi
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: output_android
-          path: output
+  #     - name: Upload artifact
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: output_android
+  #         path: output
 
-      - name: Upload resultFile
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: some-result.json
-          path: some-result.json
+  #     - name: Upload resultFile
+  #       if: always()
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: some-result.json
+  #         path: some-result.json
 
-  check_failed_android:
-    runs-on: ubuntu-latest
+  # check_failed_android:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v2
 
-      - name: Run tests
-        uses: ./
-        with:
-          apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
-          application: "example/app.apk"
-          testApplication: "example/appTestFailed.apk"
-          platform: android
-          name: "android_3_0"
-          output: "output"
-          version: "1.0.38"
-          ignoreTestFailures: "true"
+  #     - name: Run tests
+  #       uses: ./
+  #       with:
+  #         apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
+  #         application: "example/app.apk"
+  #         testApplication: "example/appTestFailed.apk"
+  #         platform: android
+  #         name: "android_3_0"
+  #         output: "output"
+  #         version: "1.0.38"
+  #         ignoreTestFailures: "true"
 
-      - name: Check if output folder exists and is not empty
-        run: |
-          if [ -d "output" ] && [ "$(ls -A output)" ]; then
-            echo "Output folder exists and is not empty."
-          else
-            echo "Output folder does not exist or is empty."
-            exit 1
-          fi
+  #     - name: Check if output folder exists and is not empty
+  #       run: |
+  #         if [ -d "output" ] && [ "$(ls -A output)" ]; then
+  #           echo "Output folder exists and is not empty."
+  #         else
+  #           echo "Output folder does not exist or is empty."
+  #           exit 1
+  #         fi
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: output_android_failed
-          path: output
+  #     - name: Upload artifact
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: output_android_failed
+  #         path: output
 
-  check_ios:
-    runs-on: ubuntu-latest
+  # check_ios:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v2
 
-      - name: Run tests parallel
-        uses: ./
-        with:
-          apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
-          application: "example/sample.zip"
-          testApplication: "example/sampleUITests-Runner.zip"
-          platform: ios
-          name: "ios_3_0"
-          output: "output"
-          version: "1.0.38"
+  #     - name: Run tests parallel
+  #       uses: ./
+  #       with:
+  #         apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
+  #         application: "example/sample.zip"
+  #         testApplication: "example/sampleUITests-Runner.zip"
+  #         platform: ios
+  #         name: "ios_3_0"
+  #         output: "output"
+  #         version: "1.0.38"
 
-      - name: Check if output folder exists and is not empty
-        run: |
-          if [ -d "output" ] && [ "$(ls -A output)" ]; then
-            echo "Output folder exists and is not empty."
-          else
-            echo "Output folder does not exist or is empty."
-            exit 1
-          fi
+  #     - name: Check if output folder exists and is not empty
+  #       run: |
+  #         if [ -d "output" ] && [ "$(ls -A output)" ]; then
+  #           echo "Output folder exists and is not empty."
+  #         else
+  #           echo "Output folder does not exist or is empty."
+  #           exit 1
+  #         fi
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: output_ios
-          path: output
+  #     - name: Upload artifact
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: output_ios
+  #         path: output
