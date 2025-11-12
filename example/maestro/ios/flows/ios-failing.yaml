@@ -1,0 +1,7 @@
+appId: org.wikipedia
+tags:
+  - ios
+  - failing
+---
+- launchApp
+- assertVisible: "Doesn't exist"
