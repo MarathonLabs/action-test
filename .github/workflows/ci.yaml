@@ -138,23 +138,6 @@ jobs:
           name: output_ios
           path: output
 
-  check_simple_android:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Run tests
-        uses: ./
-        with:
-          apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
-          application: "example/app.apk"
-          testApplication: "example/appTest.apk"
-          platform: android
-          name: "android_3_0"
-          version: "1.0.38"
-
   check_simple_maestro_android:
     runs-on: ubuntu-latest
     steps:
