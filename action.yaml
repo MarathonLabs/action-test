@@ -11,16 +11,17 @@ inputs:
     description: "Application binary path, e.g. apk file for Android or zip file of iOS Application"
     required: true
   testApplication:
-    description: "Test application binary path, e.g. apk file for Android or zip file of iOS Test Runner app"
+    description: "Test application binary path, e.g. apk file for Android or zip file of iOS Test Runner app or folder containing maestro flow"
     required: true
   platform:
-    description: "Testing platform. Android or iOS only"
+    description: "Testing platform. [Android,iOS,Maestro/Android,Maestro/iOS]"
     required: true
   osVersion:
-    description: "Android or iOS OS version. For Android one of [10, 11, 12, 13, 14]. For iOS one of [16.4, 17.2]"
+    description: "Android or iOS OS version. For Android one of [8.1, 9, 10, 11, 12, 13, 14, 15, 16]. For iOS one of [17.5, 18.2, 18.4]"
     required: false
   systemImage:
-    description: "OS-specific system image. For Android one of [default,google_apis]. For iOS only [default]"
+    description: "OS-specific system image. For Android one of [default,google_apis,google_apis_playstore]. For iOS only [default]"
+    required: false
   link:
     description: "Link to commit"
     required: false
@@ -41,16 +42,15 @@ inputs:
     required: false
   wait:
     description: "Wait for test run to finish if true, exits after triggering a run if false. Defaults to true"
-    default: "true"
     required: false
   name:
     description: "Name for run, for example it could be description of commit"
     required: false
   device:
-    description: "Device type. For Android one of [phone, tv, watch]. For iOS one of [iPhone-14, iPhone-15]"
+    description: "Device type. For Android one of [phone, tv, watch]. For iOS one of [iPhone-11, iPhone-15, iPhone-15-Pro, iPhone-15-Pro-Max, iPhone-16, iPhone-16-Plus, iPhone-16-Pro, iPhone-16-Pro-Max]"
     required: false
   xcodeVersion:
-    description: "Xcode version. Only for iOS. Possible values: [14.3.1, 15.2]"
+    description: "Xcode version. Only for iOS. Possible values: [15.4, 16.2, 16.3]"
     required: false
   xctestplanFilterFile:
     description: "Test filters supplied as .xctestplan file"
@@ -97,6 +97,12 @@ inputs:
   noRetries:
     description: "Disable all retries [possible values: true, false]"
     required: false
+  maestroEnv:
+    description: "maestro environment variables, format: 'MAESTRO_APP_ID=com.example,MAESTRO_OTHER_VAR=blahblah'"
+    required: false
+  flows:
+    description: "maestro flows to execute, all the files specified should be inside the testApplication folder: 'flows/my-flow.yaml,flows/subfolder/flow.yaml'"
+    required: false
 branding:
   color: purple
   icon: play-circle
@@ -108,7 +114,7 @@ runs:
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      uses: MarathonLabs/action-invoke@1.0.14
+      uses: MarathonLabs/action-invoke@1.0.15
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
@@ -141,3 +147,5 @@ runs:
         retryQuotaTestPreventive: ${{ inputs.retryQuotaTestPreventive }}
         retryQuotaTestReactive: ${{ inputs.retryQuotaTestReactive }}
         noRetries: ${{ inputs.noRetries }}
+        maestroEnv: ${{ inputs.maestroEnv }}
+        flows: ${{ inputs.flows}}

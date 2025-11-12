@@ -137,3 +137,34 @@ jobs:
         with:
           name: output_ios
           path: output
+
+  check_simple_maestro_android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run tests
+        uses: ./
+        with:
+          apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
+          application: "example/maestro/android/wikipedia.apk"
+          testApplication: "example/maestro/android/flows"
+          platform: "maestro/android"
+          name: "maestro_android_simple"
+          version: "1.0.51"
+
+  check_simple_maestro_ios:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run tests
+        uses: ./
+        with:
+          apiKey: ${{ secrets.MARATHON_CLOUD_API_TOKEN }}
+          application: "example/maestro/ios/wikipedia.zip"
+          testApplication: "example/maestro/ios/flows"
+          platform: "maestro/ios"
+          name: "maestro_ios_simple"
+          version: "1.0.51"
+

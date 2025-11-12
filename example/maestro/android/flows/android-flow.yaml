@@ -1,0 +1,7 @@
+appId: org.wikipedia
+tags:
+  - android
+  - passing
+---
+- launchApp
+- assertVisible: "Doesn't exist"
