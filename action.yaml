@@ -110,11 +110,13 @@ runs:
   using: composite
   steps:
     - name: Setup marathon-cloud
-      uses: MarathonLabs/setup-marathon-cloud@2.0.2
+      # MarathonLabs/setup-marathon-cloud@2.0.2
+      uses: MarathonLabs/setup-marathon-cloud@77ff58581f9d9a7ba5d4ca2023aeb39b5d93d017
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      uses: MarathonLabs/action-invoke@1.0.17
+      # MarathonLabs/action-invoke@1.0.17
+      uses: MarathonLabs/action-invoke@77daba490adcd45b268af1c9ba7dd026c52321e0
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
