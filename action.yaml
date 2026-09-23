@@ -103,6 +103,9 @@ inputs:
   flows:
     description: "maestro flows to execute, all the files specified should be inside the testApplication folder: 'flows/my-flow.yaml,flows/subfolder/flow.yaml'"
     required: false
+  arch:
+    description: "Target architecture: amd64 or arm64"
+    required: false
 branding:
   color: purple
   icon: play-circle
@@ -115,8 +118,8 @@ runs:
       with:
         version: ${{ inputs.version }}
     - name: Run tests using marathon-cloud
-      # MarathonLabs/action-invoke@1.0.17
-      uses: MarathonLabs/action-invoke@77daba490adcd45b268af1c9ba7dd026c52321e0
+      # MarathonLabs/action-invoke@1.0.18
+      uses: MarathonLabs/action-invoke@aae9864ca7ce9bb53dcff8b78df22f513bd65a98
       with:
         apiKey: ${{ inputs.apiKey }}
         application: ${{ inputs.application }}
@@ -151,3 +154,4 @@ runs:
         noRetries: ${{ inputs.noRetries }}
         maestroEnv: ${{ inputs.maestroEnv }}
         flows: ${{ inputs.flows}}
+        arch: ${{ inputs.arch }}
